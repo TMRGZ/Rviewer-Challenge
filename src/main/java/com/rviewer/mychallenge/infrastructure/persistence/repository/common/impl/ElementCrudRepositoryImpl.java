@@ -11,15 +11,17 @@ import java.io.Serializable;
 public abstract class ElementCrudRepositoryImpl<
         E extends CmdbElement<I>,
         D extends CmdbElementDao<I>,
-        R extends JpaElementCrudRepository<D, I>,
-        I extends Serializable,
-        M extends GenericDaoMapper<E, D, I>>
-        extends ElementReadOnlyRepositoryImpl<E, D, R, M, I>
+        I extends Serializable>
+        extends ElementReadOnlyRepositoryImpl<E, D, I>
         implements ElementCrudRepository<E, I> {
 
-    protected ElementCrudRepositoryImpl(R repository, M mapper) {
-        super(repository, mapper);
+    private final JpaElementCrudRepository<D, I> repository;
+
+    public ElementCrudRepositoryImpl(GenericDaoMapper<E, D, I> mapper, JpaElementCrudRepository<D, I> repository) {
+        super(mapper, repository);
+        this.repository = repository;
     }
+
 
     @Override
     public E save(E element) {

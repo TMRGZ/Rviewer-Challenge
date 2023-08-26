@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public abstract class CmdbReadOnlyService<E extends CmdbElement<I>, R extends ElementReadOnlyRepository<E, I>, I> {
+public abstract class CmdbReadOnlyService<E extends CmdbElement<I>, I> {
 
-    final R repository;
+    private final ElementReadOnlyRepository<E, I> repository;
 
     public E getById(I id) {
         return repository.findById(id)

@@ -15,14 +15,11 @@ import java.util.Optional;
 public abstract class ElementReadOnlyRepositoryImpl<
         E extends CmdbElement<I>,
         D extends CmdbElementDao<I>,
-        R extends JpaElementReadOnlyRepository<D, I>,
-        M extends GenericDaoMapper<E, D, I>,
         I extends Serializable>
         implements ElementReadOnlyRepository<E, I> {
 
-    final R repository;
-
-    final M mapper;
+    final GenericDaoMapper<E, D, I> mapper;
+    private final JpaElementReadOnlyRepository<D, I> repository;
 
     @Override
     public Optional<E> findById(I id) {
