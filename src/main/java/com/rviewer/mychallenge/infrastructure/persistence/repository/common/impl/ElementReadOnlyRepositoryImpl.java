@@ -6,6 +6,7 @@ import com.rviewer.mychallenge.infrastructure.persistence.dao.common.CmdbElement
 import com.rviewer.mychallenge.infrastructure.persistence.mapper.common.GenericDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.JpaElementReadOnlyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.history.Revision;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,6 +31,14 @@ public abstract class ElementReadOnlyRepositoryImpl<
     @Override
     public List<E> findAll() {
         return repository.findAll().stream()
+                .map(mapper::mapToModel)
+                .toList();
+    }
+
+    @Override
+    public List<E> findHistory(I id) {
+        return repository.findRevisions(id).stream()
+                .map(Revision::getEntity)
                 .map(mapper::mapToModel)
                 .toList();
     }

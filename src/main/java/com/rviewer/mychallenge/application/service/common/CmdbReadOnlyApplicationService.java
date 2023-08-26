@@ -26,4 +26,11 @@ public abstract class CmdbReadOnlyApplicationService<M extends CmdbElement<I>, D
         M element = service.getById(id);
         return ResponseEntity.ok(mapper.mapToDto(element));
     }
+
+    public ResponseEntity<List<D>> getElementHistory(I id) {
+        List<D> historyList = service.getHistory(id).stream()
+                .map(mapper::mapToDto)
+                .toList();
+        return ResponseEntity.ok(historyList);
+    }
 }

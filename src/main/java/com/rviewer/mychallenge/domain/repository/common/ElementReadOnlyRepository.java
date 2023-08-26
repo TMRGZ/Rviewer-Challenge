@@ -11,4 +11,6 @@ public interface ElementReadOnlyRepository<E extends CmdbElement<I>, I> {
 
     List<E> findAll();
 
+    List<E> findHistory(I id);
+
 }

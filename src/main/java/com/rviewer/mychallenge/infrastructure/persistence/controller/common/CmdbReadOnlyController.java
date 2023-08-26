@@ -24,4 +24,9 @@ public abstract class CmdbReadOnlyController<M extends CmdbElement<I>, D extends
     public ResponseEntity<D> getElement(@PathVariable I id) {
         return service.getElement(id);
     }
+
+    @GetMapping("/{id}/history")
+    public ResponseEntity<List<D>> getElementHistory(@PathVariable I id) {
+        return service.getElementHistory(id);
+    }
 }

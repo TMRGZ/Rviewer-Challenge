@@ -19,4 +19,8 @@ public abstract class CmdbReadOnlyService<E extends CmdbElement<I>, I> {
     public List<E> getAll() {
         return repository.findAll();
     }
+
+    public List<E> getHistory(I id) {
+        return repository.findHistory(id);
+    }
 }
