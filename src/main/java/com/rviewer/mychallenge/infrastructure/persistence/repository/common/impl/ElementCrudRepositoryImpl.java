@@ -32,6 +32,7 @@ public abstract class ElementCrudRepositoryImpl<
     @Override
     public void delete(E element) {
         D dao = mapper.mapToDao(element);
-        repository.delete(dao);
+        dao.setActive(false);
+        repository.save(dao);
     }
 }

@@ -31,6 +31,7 @@ public abstract class ElementReadOnlyRepositoryImpl<
     @Override
     public List<E> findAll() {
         return repository.findAll().stream()
+                .filter(CmdbElementDao::getActive)
                 .map(mapper::mapToModel)
                 .toList();
     }
