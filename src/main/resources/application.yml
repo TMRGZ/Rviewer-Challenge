@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: Challenge
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: rv_user
+    password: rv_password
+    url: jdbc:postgresql://localhost:5432/postgres_rv_database
+  jpa:
+    hibernate:
+      ddl-auto: validate
