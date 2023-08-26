@@ -1,4 +1,4 @@
-package com.rviewer.mychallenge.domain.model;
+package com.rviewer.mychallenge.domain.model.common;
 
 import lombok.Builder;
 import lombok.Getter;

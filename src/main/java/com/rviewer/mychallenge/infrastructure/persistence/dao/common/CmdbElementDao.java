@@ -1,4 +1,4 @@
-package com.rviewer.mychallenge.infrastructure.persistence.dao;
+package com.rviewer.mychallenge.infrastructure.persistence.dao.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;

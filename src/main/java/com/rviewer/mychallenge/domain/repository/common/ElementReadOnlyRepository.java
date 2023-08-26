@@ -1,6 +1,6 @@
 package com.rviewer.mychallenge.domain.repository.common;
 
-import com.rviewer.mychallenge.domain.model.CmdbElement;
+import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 
 import java.util.List;
 import java.util.Optional;
