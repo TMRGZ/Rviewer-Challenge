@@ -17,7 +17,7 @@ public abstract class CmdbCrudService<E extends CmdbElement<I>, I> extends CmdbR
         return repository.save(element);
     }
 
-    public void delete(E element) {
-        repository.delete(element);
+    public void delete(I id) {
+        repository.findById(id).ifPresent(repository::delete);
     }
 }
