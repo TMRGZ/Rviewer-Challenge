@@ -1,12 +1,12 @@
 package com.rviewer.mychallenge.application.dto.common;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Getter
-@Setter
-@Builder(toBuilder = true)
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor
 public abstract class CmdbElementDto<I> {
 
     private I id;

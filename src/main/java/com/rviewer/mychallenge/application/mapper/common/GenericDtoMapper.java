@@ -2,9 +2,9 @@ package com.rviewer.mychallenge.application.mapper.common;
 
 import com.rviewer.mychallenge.application.dto.common.CmdbElementDto;
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
-import org.mapstruct.Mapper;
+import org.mapstruct.MapperConfig;
 
-@Mapper(componentModel = "spring")
+@MapperConfig
 public interface GenericDtoMapper<M extends CmdbElement<I>, D extends CmdbElementDto<I>, I> {
 
     M mapToModel(D dto);
