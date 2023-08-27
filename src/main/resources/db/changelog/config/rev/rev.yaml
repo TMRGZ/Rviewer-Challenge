@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-revinfo-table
+      author: TMRGZ
+      changes:
+        - createTable:
+            tableName: revinfo
+            columns:
+              - column:
+                  name: rev
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: revtstmp
+                  type: bigint

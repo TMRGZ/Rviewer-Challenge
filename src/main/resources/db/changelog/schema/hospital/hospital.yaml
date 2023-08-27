@@ -1,0 +1,110 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-hospital-table
+      author: TMRGZ
+      changes:
+        - createTable:
+            tableName: HOSPITAL
+            columns:
+              - column:
+                  name: ID
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: ACTIVE
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: NAME
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ADDRESS
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: CENTRAL_HOSPITAL_ID
+                  type: bigint
+        - addForeignKeyConstraint:
+            constraintName: CENTRAL_HOSPITAL_FROM_HOSPITAL
+            baseTableName: HOSPITAL
+            baseColumnNames: CENTRAL_HOSPITAL_ID
+            referencedTableName: HOSPITAL
+            referencedColumnNames: ID
+  - changeSet:
+      id: create-hospital-aud-tables
+      author: TMRGZ
+      changes:
+        - createTable:
+            tableName: HOSPITAL_AUD
+            columns:
+              - column:
+                  name: REV
+                  type: integer
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ID
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: ACTIVE
+                  type: boolean
+              - column:
+                  name: NAME
+                  type: varchar
+              - column:
+                  name: ADDRESS
+                  type: varchar
+              - column:
+                  name: CENTRAL_HOSPITAL_ID
+                  type: bigint
+              - column:
+                  name: REVTYPE
+                  type: smallint
+        - addForeignKeyConstraint:
+            constraintName: HOSPITAL_AUD_ON_REVINFO
+            baseTableName: HOSPITAL_AUD
+            baseColumnNames: REV
+            referencedTableName: REVINFO
+            referencedColumnNames: REV
+        - createTable:
+            tableName: HOSPITAL_HOSPITAL_AUD
+            columns:
+              - column:
+                  name: ID
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: rev
+                  type: integer
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: CENTRAL_HOSPITAL_ID
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: revtype
+                  type: smallint
+        - addForeignKeyConstraint:
+            constraintName: HOSPITAL_HOSPITAL_AUD_ON_REVINFO
+            baseTableName: HOSPITAL_HOSPITAL_AUD
+            baseColumnNames: REV
+            referencedTableName: REVINFO
+            referencedColumnNames: REV
+
+
