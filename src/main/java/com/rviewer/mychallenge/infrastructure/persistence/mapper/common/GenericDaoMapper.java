@@ -2,11 +2,11 @@ package com.rviewer.mychallenge.infrastructure.persistence.mapper.common;
 
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.common.CmdbElementDao;
-import org.mapstruct.Mapper;
+import org.mapstruct.MapperConfig;
 
 import java.io.Serializable;
 
-@Mapper(componentModel = "spring")
+@MapperConfig
 public interface GenericDaoMapper<M extends CmdbElement<I>, D extends CmdbElementDao<I>, I extends Serializable> {
 
     D mapToDao(M model);

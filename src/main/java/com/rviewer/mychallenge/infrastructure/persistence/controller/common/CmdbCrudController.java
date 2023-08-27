@@ -13,12 +13,12 @@ public abstract class CmdbCrudController<M extends CmdbElement<I>, D extends Cmd
 
     private final CmdbCrudApplicationService<M, D, I> service;
 
-    public CmdbCrudController(CmdbCrudApplicationService<M, D, I> service) {
+    protected CmdbCrudController(CmdbCrudApplicationService<M, D, I> service) {
         super(service);
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<D> saveElement(@RequestBody D elementToSave) {
         return service.saveElement(elementToSave);
     }

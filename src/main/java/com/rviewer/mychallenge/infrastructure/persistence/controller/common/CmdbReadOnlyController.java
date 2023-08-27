@@ -15,7 +15,7 @@ public abstract class CmdbReadOnlyController<M extends CmdbElement<I>, D extends
 
     private final CmdbReadOnlyApplicationService<M, D, I> service;
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<List<D>> getAllElements() {
         return service.getAllElements();
     }

@@ -17,7 +17,7 @@ public abstract class ElementCrudRepositoryImpl<
 
     private final JpaElementCrudRepository<D, I> repository;
 
-    public ElementCrudRepositoryImpl(GenericDaoMapper<E, D, I> mapper, JpaElementCrudRepository<D, I> repository) {
+    protected ElementCrudRepositoryImpl(GenericDaoMapper<E, D, I> mapper, JpaElementCrudRepository<D, I> repository) {
         super(mapper, repository);
         this.repository = repository;
     }
