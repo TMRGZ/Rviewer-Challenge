@@ -1,4 +1,4 @@
-package com.rviewer.mychallenge.infrastructure.persistence.config;
+package com.rviewer.mychallenge.infrastructure.config;
 
 import com.rviewer.mychallenge.domain.repository.hospital.HospitalRepository;
 import com.rviewer.mychallenge.domain.service.hospital.HospitalService;

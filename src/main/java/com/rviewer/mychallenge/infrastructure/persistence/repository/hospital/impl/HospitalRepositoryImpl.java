@@ -2,8 +2,8 @@ package com.rviewer.mychallenge.infrastructure.persistence.repository.hospital.i
 
 import com.rviewer.mychallenge.domain.model.hospital.Hospital;
 import com.rviewer.mychallenge.domain.repository.hospital.HospitalRepository;
+import com.rviewer.mychallenge.infrastructure.mapper.common.GenericDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.hospital.HospitalDao;
-import com.rviewer.mychallenge.infrastructure.persistence.mapper.common.GenericDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.repository.common.impl.ElementCrudRepositoryImpl;
 import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.JpaElementCrudRepository;
 import org.springframework.stereotype.Component;

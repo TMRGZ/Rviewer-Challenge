@@ -2,8 +2,8 @@ package com.rviewer.mychallenge.infrastructure.persistence.repository.common.imp
 
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.domain.repository.common.ElementReadOnlyRepository;
+import com.rviewer.mychallenge.infrastructure.mapper.common.GenericDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.common.CmdbElementDao;
-import com.rviewer.mychallenge.infrastructure.persistence.mapper.common.GenericDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.JpaElementReadOnlyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.history.Revision;

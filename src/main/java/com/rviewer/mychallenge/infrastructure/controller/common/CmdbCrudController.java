@@ -1,4 +1,4 @@
-package com.rviewer.mychallenge.infrastructure.persistence.controller.common;
+package com.rviewer.mychallenge.infrastructure.controller.common;
 
 import com.rviewer.mychallenge.application.dto.common.CmdbElementDto;
 import com.rviewer.mychallenge.application.service.common.CmdbCrudApplicationService;

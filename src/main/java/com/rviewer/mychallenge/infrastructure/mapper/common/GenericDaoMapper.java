@@ -1,4 +1,4 @@
-package com.rviewer.mychallenge.infrastructure.persistence.mapper.common;
+package com.rviewer.mychallenge.infrastructure.mapper.common;
 
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.common.CmdbElementDao;

@@ -1,9 +1,9 @@
-package com.rviewer.mychallenge.infrastructure.persistence.mapper.hospital;
+package com.rviewer.mychallenge.infrastructure.mapper.hospital;
 
 import com.rviewer.mychallenge.application.mapper.common.GenericDtoMapper;
 import com.rviewer.mychallenge.domain.model.hospital.Hospital;
+import com.rviewer.mychallenge.infrastructure.mapper.common.GenericDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.hospital.HospitalDao;
-import com.rviewer.mychallenge.infrastructure.persistence.mapper.common.GenericDaoMapper;
 import org.mapstruct.Mapper;
 
 import java.util.Optional;
