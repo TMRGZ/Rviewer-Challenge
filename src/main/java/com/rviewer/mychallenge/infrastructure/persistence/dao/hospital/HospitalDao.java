@@ -2,6 +2,7 @@ package com.rviewer.mychallenge.infrastructure.persistence.dao.hospital;
 
 import com.rviewer.mychallenge.infrastructure.persistence.dao.common.CmdbElementDao;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class HospitalDao extends CmdbElementDao<Long> {
     @Column(name = "ADDRESS", nullable = false)
     private String address;
 
+    @Builder.Default
     @OneToMany(mappedBy = Fields.centralHospital)
     @AuditJoinTable(name = "HOSPITAL_HOSPITAL_AUD")
     private List<HospitalDao> hospitalDelegateList = Collections.emptyList();
