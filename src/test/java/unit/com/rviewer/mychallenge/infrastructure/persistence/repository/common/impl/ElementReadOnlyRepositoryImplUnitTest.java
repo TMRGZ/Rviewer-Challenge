@@ -8,12 +8,14 @@ import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.platform.commons.util.ReflectionUtils;
 import org.mockito.Mockito;
+import org.springframework.core.GenericTypeResolver;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.history.Revision;
 import org.springframework.data.history.Revisions;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,16 +38,27 @@ public abstract class ElementReadOnlyRepositoryImplUnitTest<
         this.jpaElementReadOnlyRepository = jpaElementReadOnlyRepository;
     }
 
+    Class<E> getElementClass() {
+        var typeReference = new ParameterizedTypeReference<E>() {
+        };
+        return (Class<E>) GenericTypeResolver.resolveType(typeReference.getType(), getClass());
+    }
+
+    Class<D> getElementDaoClass() {
+        var typeReference = new ParameterizedTypeReference<D>() {
+        };
+        return (Class<D>) GenericTypeResolver.resolveType(typeReference.getType(), getClass());
+    }
+
     @MethodSource
     @ParameterizedTest
-    public void findByIdUnitTest(I id, Class<E> modelClass, Class<D> daoClass)
-            throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void findByIdUnitTest(I id) {
         // given
-        D foundDao = daoClass.getDeclaredConstructor().newInstance();
+        D foundDao = ReflectionUtils.newInstance(getElementDaoClass());
         foundDao.setId(id);
         Mockito.when(jpaElementReadOnlyRepository.findById(id)).thenReturn(Optional.of(foundDao));
         // and
-        E mappedModel = modelClass.getDeclaredConstructor().newInstance();
+        E mappedModel = ReflectionUtils.newInstance(getElementClass());
         mappedModel.setId(foundDao.getId());
         Mockito.when(mapper.mapToModel(foundDao)).thenReturn(mappedModel);
 
@@ -79,21 +92,16 @@ public abstract class ElementReadOnlyRepositoryImplUnitTest<
 
     @MethodSource
     @ParameterizedTest
-    public void findAllUnitTest(List<D> elementDaoList, Class<E> modelClass) {
+    public void findAllUnitTest(List<D> elementDaoList) {
         // given
         Mockito.when(jpaElementReadOnlyRepository.findAll()).thenReturn(elementDaoList);
         // and
         elementDaoList.stream()
                 .filter(CmdbElementDao::getActive)
                 .forEach(elementDao -> {
-                    try {
-                        E elementModel = modelClass.getDeclaredConstructor().newInstance();
-                        elementModel.setId(elementDao.getId());
-                        Mockito.when(mapper.mapToModel(elementDao)).thenReturn(elementModel);
-                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                             NoSuchMethodException e) {
-                        throw new RuntimeException(e);
-                    }
+                    E elementModel = ReflectionUtils.newInstance(getElementClass());
+                    elementModel.setId(elementDao.getId());
+                    Mockito.when(mapper.mapToModel(elementDao)).thenReturn(elementModel);
                 });
 
         // when
@@ -115,21 +123,16 @@ public abstract class ElementReadOnlyRepositoryImplUnitTest<
 
     @MethodSource
     @ParameterizedTest
-    public void findHistoryUnitTest(I id, Revisions<Integer, D> revisionList, Class<E> modelClass) {
+    public void findHistoryUnitTest(I id, Revisions<Integer, D> revisionList) {
         // given
         Mockito.when(jpaElementReadOnlyRepository.findRevisions(id)).thenReturn(revisionList);
         // and
         revisionList.stream()
                 .map(Revision::getEntity)
                 .forEach(revision -> {
-                    try {
-                        E elementModel = modelClass.getDeclaredConstructor().newInstance();
-                        elementModel.setId(revision.getId());
-                        Mockito.when(mapper.mapToModel(revision)).thenReturn(elementModel);
-                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                             NoSuchMethodException e) {
-                        throw new RuntimeException(e);
-                    }
+                    E elementModel = ReflectionUtils.newInstance(getElementClass());
+                    elementModel.setId(revision.getId());
+                    Mockito.when(mapper.mapToModel(revision)).thenReturn(elementModel);
                 });
 
         // when

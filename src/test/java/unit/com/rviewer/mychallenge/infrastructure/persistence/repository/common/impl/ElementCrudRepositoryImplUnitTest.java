@@ -8,10 +8,10 @@ import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.platform.commons.util.ReflectionUtils;
 import org.mockito.Mockito;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 
 public abstract class ElementCrudRepositoryImplUnitTest<
         E extends CmdbElement<I>,
@@ -34,12 +34,12 @@ public abstract class ElementCrudRepositoryImplUnitTest<
         this.jpaElementCrudRepository = jpaElementCrudRepository;
     }
 
+
     @MethodSource
     @ParameterizedTest
-    public void saveUnitTest(E elementToSave, Class<D> daoClass)
-            throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void saveUnitTest(E elementToSave) {
         // given
-        D mappedDao = daoClass.getDeclaredConstructor().newInstance();
+        D mappedDao = ReflectionUtils.newInstance(getElementDaoClass());
         Mockito.when(mapper.mapToDao(elementToSave)).thenReturn(mappedDao);
         // and
         Mockito.when(jpaElementCrudRepository.save(mappedDao)).thenReturn(mappedDao);
@@ -57,10 +57,9 @@ public abstract class ElementCrudRepositoryImplUnitTest<
 
     @MethodSource
     @ParameterizedTest
-    public void deleteUnitTest(E elementToDelete, Class<D> daoClass)
-            throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void deleteUnitTest(E elementToDelete) {
         // given
-        D mappedDao = daoClass.getDeclaredConstructor().newInstance();
+        D mappedDao = ReflectionUtils.newInstance(getElementDaoClass());
         Mockito.when(mapper.mapToDao(elementToDelete)).thenReturn(mappedDao);
         // and
         Mockito.when(jpaElementCrudRepository.save(mappedDao)).thenReturn(mappedDao);

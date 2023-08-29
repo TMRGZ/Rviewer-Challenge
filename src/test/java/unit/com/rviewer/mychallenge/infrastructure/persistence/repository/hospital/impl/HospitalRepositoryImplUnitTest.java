@@ -30,36 +30,34 @@ class HospitalRepositoryImplUnitTest extends ElementCrudRepositoryImplUnitTest<H
     @Mock
     private JpaHospitalRepository repository;
 
-    static Stream<Arguments> findByIdUnitTest() {
-        return Stream.of(Arguments.of(1L, Hospital.class, HospitalDao.class));
+    static Stream<Long> findByIdUnitTest() {
+        return Stream.of(1L);
     }
 
     static Stream<Long> findById_ButNotFound_UnitTest() {
         return Stream.of(1L);
     }
 
-    static Stream<Arguments> findAllUnitTest() {
+    static Stream<List<HospitalDao>> findAllUnitTest() {
         var elementDaoList = List.of(
                 HospitalDao.builder().id(1L).build(),
                 HospitalDao.builder().id(2L).active(false).build()
         );
 
-        return Stream.of(
-                Arguments.of(elementDaoList, Hospital.class)
-        );
+        return Stream.of(elementDaoList);
     }
 
     static Stream<Arguments> findHistoryUnitTest() {
         var revisionList = Mockito.mock(Revisions.class);
-        return Stream.of(Arguments.of(1L, revisionList, Hospital.class));
+        return Stream.of(Arguments.of(1L, revisionList));
     }
 
-    static Stream<Arguments> saveUnitTest() {
-        return Stream.of(Arguments.of(Hospital.builder().build(), HospitalDao.class));
+    static Stream<Hospital> saveUnitTest() {
+        return Stream.of(Hospital.builder().build());
     }
 
-    static Stream<Arguments> deleteUnitTest() {
-        return Stream.of(Arguments.of(Hospital.builder().build(), HospitalDao.class));
+    static Stream<Hospital> deleteUnitTest() {
+        return Stream.of(Hospital.builder().build());
     }
 
     @BeforeEach
