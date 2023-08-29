@@ -12,7 +12,7 @@ public abstract class CmdbCrudApplicationService<M extends CmdbElement<I>, D ext
 
     private final CmdbCrudService<M, I> service;
 
-    public CmdbCrudApplicationService(GenericDtoMapper<M, D, I> mapper, CmdbCrudService<M, I> service) {
+    protected CmdbCrudApplicationService(GenericDtoMapper<M, D, I> mapper, CmdbCrudService<M, I> service) {
         super(mapper, service);
         this.service = service;
     }
