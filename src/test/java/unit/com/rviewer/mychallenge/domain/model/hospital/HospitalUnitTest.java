@@ -24,6 +24,6 @@ public class HospitalUnitTest extends CmdbElementUnitTest<Hospital, Long> {
         Assertions.assertNull(element.getName());
         Assertions.assertNull(element.getAddress());
         Assertions.assertNull(element.getHospitalDelegateList());
-        Assertions.assertNull(element.getCentralHospital());
+        Assertions.assertNull(element.getCentralHospitalId());
     }
 }

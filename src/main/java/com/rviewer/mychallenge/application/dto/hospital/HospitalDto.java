@@ -18,7 +18,7 @@ public class HospitalDto extends CmdbElementDto<Long> {
 
     private String address;
 
-    private Long centralHospital;
+    private Long centralHospitalId;
 
     private List<HospitalDto> hospitalDelegateList;
 }

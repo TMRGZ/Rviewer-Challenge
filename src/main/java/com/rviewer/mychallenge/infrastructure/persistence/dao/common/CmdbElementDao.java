@@ -2,15 +2,13 @@ package com.rviewer.mychallenge.infrastructure.persistence.dao.common;
 
 import jakarta.persistence.*;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 @MappedSuperclass
 @NoArgsConstructor
 @SuperBuilder(toBuilder = true)

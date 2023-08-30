@@ -3,9 +3,9 @@ package com.rviewer.mychallenge.infrastructure.persistence.dao.hospital;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.common.CmdbElementDao;
 import jakarta.persistence.*;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.envers.AuditJoinTable;
@@ -14,14 +14,14 @@ import org.hibernate.envers.Audited;
 import java.util.Collections;
 import java.util.List;
 
-@Audited
-@Entity
-@Table(name = "HOSPITAL")
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @FieldNameConstants
 @SuperBuilder(toBuilder = true)
+@EqualsAndHashCode(callSuper = true)
+@Entity
+@Audited
+@Table(name = "HOSPITAL")
 public class HospitalDao extends CmdbElementDao<Long> {
 
     @Column(name = "NAME", nullable = false)

@@ -25,7 +25,7 @@ class HospitalDtoUnitTest extends CmdbElementDtoUnitTest<HospitalDto, Long> {
         Assertions.assertNull(elementDto.getName());
         Assertions.assertNull(elementDto.getAddress());
         Assertions.assertNull(elementDto.getHospitalDelegateList());
-        Assertions.assertNull(elementDto.getCentralHospital());
+        Assertions.assertNull(elementDto.getCentralHospitalId());
     }
 
 }
