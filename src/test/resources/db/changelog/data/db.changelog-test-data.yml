@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-test-data
+      author: TMRGZ
+      changes:
+        - insert:
+            tableName: HOSPITAL
+            columns:
+              - column:
+                  name: id
+                  value: "101"
+              - column:
+                  name: active
+                  valueBoolean: "true"
+              - column:
+                  name: name
+                  value: READ_HOSPITAL
+              - column:
+                  name: address
+                  value: ADDRESS
+        - insert:
+            tableName: REVINFO
+            columns:
+              - column:
+                  name: rev
+                  value: "100"
+        - insert:
+            tableName: HOSPITAL_AUD
+            columns:
+              - column:
+                  name: rev
+                  value: "100"
+              - column:
+                  name: id
+                  value: "1"
+              - column:
+                  name: active
+                  valueBoolean: "true"
+              - column:
+                  name: name
+                  value: READ_HOSPITAL
+              - column:
+                  name: address
+                  value: ADDRESS
+              - column:
+                  name: revtype
+                  value: "0"
+        - insert:
+            tableName: HOSPITAL
+            columns:
+              - column:
+                  name: id
+                  value: "100"
+              - column:
+                  name: active
+                  valueBoolean: "true"
+              - column:
+                  name: name
+                  value: HOSPITAL_TO_DELETE
+              - column:
+                  name: address
+                  value: ADDRESS
