@@ -69,7 +69,7 @@ databaseChangeLog:
                   type: bigint
               - column:
                   name: REVTYPE
-                  type: smallint
+                  type: tinyint
         - addForeignKeyConstraint:
             constraintName: HOSPITAL_AUD_ON_REVINFO
             baseTableName: HOSPITAL_AUD
