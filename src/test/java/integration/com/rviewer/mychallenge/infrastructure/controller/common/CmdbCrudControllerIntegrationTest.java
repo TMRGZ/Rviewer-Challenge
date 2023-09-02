@@ -6,6 +6,7 @@ import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.core.ParameterizedTypeReference;
 
 import java.io.Serializable;
 import java.util.Optional;
@@ -46,8 +47,9 @@ public abstract class CmdbCrudControllerIntegrationTest<
                 .exchange();
 
         // then
-        var responseBody = (D) response.expectStatus().isCreated()
-                .expectBody(elementToSave.getClass())
+        var responseBody = response.expectStatus().isCreated()
+                .expectBody(new ParameterizedTypeReference<D>() {
+                })
                 .returnResult().getResponseBody();
         // and
         Assertions.assertNotNull(responseBody);

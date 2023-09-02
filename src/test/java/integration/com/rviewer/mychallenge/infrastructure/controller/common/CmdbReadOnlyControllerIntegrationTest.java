@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.ParameterizedTypeReference;
 
 import java.io.Serializable;
@@ -41,12 +40,6 @@ public abstract class CmdbReadOnlyControllerIntegrationTest<
         elementHistoryEndpoint = elementEndpoint + "/history";
     }
 
-    Class<D> getElementDtoClass() {
-        var typeReference = new ParameterizedTypeReference<D>() {
-        };
-        return (Class<D>) GenericTypeResolver.resolveType(typeReference.getType(), getClass());
-    }
-
     @Test
     public void getAllElementsIntegrationTest() {
         // given
@@ -57,7 +50,8 @@ public abstract class CmdbReadOnlyControllerIntegrationTest<
 
         // then
         var responseBody = response.expectStatus().isOk()
-                .expectBodyList(getElementDtoClass())
+                .expectBodyList(new ParameterizedTypeReference<D>() {
+                })
                 .returnResult().getResponseBody();
         // and
         Assertions.assertNotNull(responseBody);
@@ -84,7 +78,8 @@ public abstract class CmdbReadOnlyControllerIntegrationTest<
 
         // then
         var responseBody = response.expectStatus().isOk()
-                .expectBody(getElementDtoClass())
+                .expectBody(new ParameterizedTypeReference<D>() {
+                })
                 .returnResult().getResponseBody();
         // and
         Assertions.assertNotNull(responseBody);
@@ -104,7 +99,8 @@ public abstract class CmdbReadOnlyControllerIntegrationTest<
 
         // then
         var responseBody = response.expectStatus().isOk()
-                .expectBodyList(getElementDtoClass())
+                .expectBodyList(new ParameterizedTypeReference<D>() {
+                })
                 .returnResult().getResponseBody();
         // and
         Assertions.assertNotNull(responseBody);
