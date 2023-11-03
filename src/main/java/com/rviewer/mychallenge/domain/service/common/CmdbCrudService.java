@@ -2,22 +2,23 @@ package com.rviewer.mychallenge.domain.service.common;
 
 
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
-import com.rviewer.mychallenge.domain.repository.common.ElementCrudRepository;
+import com.rviewer.mychallenge.domain.repository.common.reactive.ReactiveElementCrudRepository;
+import reactor.core.publisher.Mono;
 
 public abstract class CmdbCrudService<E extends CmdbElement<I>, I> extends CmdbReadOnlyService<E, I> {
 
-    private final ElementCrudRepository<E, I> repository;
+    private final ReactiveElementCrudRepository<E, I> repository;
 
-    protected CmdbCrudService(ElementCrudRepository<E, I> repository) {
+    protected CmdbCrudService(ReactiveElementCrudRepository<E, I> repository) {
         super(repository);
         this.repository = repository;
     }
 
-    public E save(E element) {
+    public Mono<E> save(E element) {
         return repository.save(element);
     }
 
-    public void delete(I id) {
-        repository.findById(id).ifPresent(repository::delete);
+    public Mono<Void> delete(I id) {
+        return repository.findById(id).flatMap(repository::delete);
     }
 }

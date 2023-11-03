@@ -1,26 +1,25 @@
 package com.rviewer.mychallenge.domain.service.common;
 
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
-import com.rviewer.mychallenge.domain.repository.common.ElementReadOnlyRepository;
+import com.rviewer.mychallenge.domain.repository.common.reactive.ReactiveElementReadOnlyRepository;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 public abstract class CmdbReadOnlyService<E extends CmdbElement<I>, I> {
 
-    private final ElementReadOnlyRepository<E, I> repository;
+    private final ReactiveElementReadOnlyRepository<E, I> repository;
 
-    public E getById(I id) {
-        return repository.findById(id)
-                .orElse(null);
+    public Mono<E> getById(I id) {
+        return repository.findById(id);
     }
 
-    public List<E> getAll() {
+    public Flux<E> getAll() {
         return repository.findAll();
     }
 
-    public List<E> getHistory(I id) {
+    public Flux<E> getHistory(I id) {
         return repository.findHistory(id);
     }
 }
