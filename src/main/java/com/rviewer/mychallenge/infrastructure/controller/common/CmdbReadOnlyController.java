@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 public abstract class CmdbReadOnlyController<M extends CmdbElement<I>, D extends CmdbElementDto<I>, I> {
@@ -16,17 +16,17 @@ public abstract class CmdbReadOnlyController<M extends CmdbElement<I>, D extends
     private final CmdbReadOnlyApplicationService<M, D, I> service;
 
     @GetMapping("")
-    public ResponseEntity<List<D>> getAllElements() {
+    public Mono<ResponseEntity<Flux<D>>> getAllElements() {
         return service.getAllElements();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<D> getElement(@PathVariable I id) {
+    public Mono<ResponseEntity<D>> getElement(@PathVariable I id) {
         return service.getElement(id);
     }
 
     @GetMapping("/{id}/history")
-    public ResponseEntity<List<D>> getElementHistory(@PathVariable I id) {
+    public Mono<ResponseEntity<Flux<D>>> getElementHistory(@PathVariable I id) {
         return service.getElementHistory(id);
     }
 }

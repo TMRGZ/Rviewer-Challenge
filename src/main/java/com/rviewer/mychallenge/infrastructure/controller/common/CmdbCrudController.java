@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import reactor.core.publisher.Mono;
 
 public abstract class CmdbCrudController<M extends CmdbElement<I>, D extends CmdbElementDto<I>, I> extends CmdbReadOnlyController<M, D, I> {
 
@@ -19,12 +20,12 @@ public abstract class CmdbCrudController<M extends CmdbElement<I>, D extends Cmd
     }
 
     @PostMapping("")
-    public ResponseEntity<D> saveElement(@RequestBody D elementToSave) {
+    public Mono<ResponseEntity<D>> saveElement(@RequestBody Mono<D> elementToSave) {
         return service.saveElement(elementToSave);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteElement(@PathVariable I id) {
+    public Mono<ResponseEntity<Void>> deleteElement(@PathVariable I id) {
         return service.deleteElement(id);
     }
 }
