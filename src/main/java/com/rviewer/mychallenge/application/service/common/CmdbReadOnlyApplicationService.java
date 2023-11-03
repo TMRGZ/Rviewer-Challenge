@@ -6,8 +6,8 @@ import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.domain.service.common.CmdbReadOnlyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 public abstract class CmdbReadOnlyApplicationService<M extends CmdbElement<I>, D extends CmdbElementDto<I>, I> {
@@ -15,22 +15,22 @@ public abstract class CmdbReadOnlyApplicationService<M extends CmdbElement<I>, D
     final GenericDtoMapper<M, D, I> mapper;
     private final CmdbReadOnlyService<M, I> service;
 
-    public ResponseEntity<List<D>> getAllElements() {
-        List<D> elementListDto = service.getAll().stream()
-                .map(mapper::mapToDto)
-                .toList();
-        return ResponseEntity.ok(elementListDto);
+    public Mono<ResponseEntity<Flux<D>>> getAllElements() {
+        Flux<D> elementFluxDto = service.getAll()
+                .map(mapper::mapToDto);
+
+        return Mono.just(ResponseEntity.ok(elementFluxDto));
     }
 
-    public ResponseEntity<D> getElement(I id) {
-        M element = service.getById(id);
-        return ResponseEntity.ok(mapper.mapToDto(element));
+    public Mono<ResponseEntity<D>> getElement(I id) {
+        return service.getById(id)
+                .map(mapper::mapToDto)
+                .map(ResponseEntity::ok);
     }
 
-    public ResponseEntity<List<D>> getElementHistory(I id) {
-        List<D> historyList = service.getHistory(id).stream()
-                .map(mapper::mapToDto)
-                .toList();
-        return ResponseEntity.ok(historyList);
+    public Mono<ResponseEntity<Flux<D>>> getElementHistory(I id) {
+        Flux<D> historyFlux = service.getHistory(id)
+                .map(mapper::mapToDto);
+        return Mono.just(ResponseEntity.ok(historyFlux));
     }
 }

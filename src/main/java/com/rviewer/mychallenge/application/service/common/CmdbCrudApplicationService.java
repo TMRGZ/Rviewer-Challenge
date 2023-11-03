@@ -6,6 +6,7 @@ import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.domain.service.common.CmdbCrudService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import reactor.core.publisher.Mono;
 
 public abstract class CmdbCrudApplicationService<M extends CmdbElement<I>, D extends CmdbElementDto<I>, I>
         extends CmdbReadOnlyApplicationService<M, D, I> {
@@ -18,13 +19,15 @@ public abstract class CmdbCrudApplicationService<M extends CmdbElement<I>, D ext
     }
 
 
-    public ResponseEntity<D> saveElement(D elementToSave) {
-        M savedElement = service.save(mapper.mapToModel(elementToSave));
-        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.mapToDto(savedElement));
+    public Mono<ResponseEntity<D>> saveElement(Mono<D> elementToSave) {
+        return elementToSave.map(mapper::mapToModel)
+                .flatMap(service::save)
+                .map(mapper::mapToDto)
+                .map(maped -> ResponseEntity.status(HttpStatus.CREATED).body(maped));
     }
 
-    public ResponseEntity<Void> deleteElement(I id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
+    public Mono<ResponseEntity<Void>> deleteElement(I id) {
+        return service.delete(id)
+                .then(Mono.just(ResponseEntity.noContent().build()));
     }
 }

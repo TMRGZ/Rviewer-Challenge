@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.List;
 
 @Getter
+@Jacksonized
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @FieldNameConstants
