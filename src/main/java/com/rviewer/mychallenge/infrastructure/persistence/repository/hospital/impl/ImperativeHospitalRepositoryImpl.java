@@ -8,7 +8,7 @@ import com.rviewer.mychallenge.infrastructure.persistence.repository.common.impl
 import com.rviewer.mychallenge.infrastructure.persistence.repository.hospital.jpa.JpaHospitalRepository;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("HOSPITAL")
 public class ImperativeHospitalRepositoryImpl extends ImperativeElementCrudRepositoryImpl<Hospital, HospitalDao, Long> implements ImperativeHospitalRepository {
     public ImperativeHospitalRepositoryImpl(HospitalDaoMapper mapper, JpaHospitalRepository repository) {
         super(mapper, repository);
