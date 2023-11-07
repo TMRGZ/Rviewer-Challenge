@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @FieldNameConstants
 @SuperBuilder(toBuilder = true)
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
 @Entity
 @Audited
 @Table(name = "HOSPITAL")
