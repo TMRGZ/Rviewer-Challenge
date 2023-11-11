@@ -1,7 +1,6 @@
 package com.rviewer.mychallenge.infrastructure.persistence.repository.hospital.impl;
 
 import com.rviewer.mychallenge.domain.model.hospital.Hospital;
-import com.rviewer.mychallenge.domain.repository.common.CmdbRetrieveType;
 import com.rviewer.mychallenge.domain.repository.hospital.ImperativeHospitalRepository;
 import com.rviewer.mychallenge.infrastructure.mapper.hospital.HospitalDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.hospital.HospitalDao;
@@ -11,8 +10,6 @@ import com.rviewer.mychallenge.infrastructure.persistence.repository.common.impl
 import com.rviewer.mychallenge.infrastructure.persistence.repository.hospital.jpa.JpaHospitalRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component("HOSPITAL")
 public class ImperativeHospitalRepositoryImpl extends ImperativeElementProjectableCrudRepositoryImpl<Hospital, HospitalProjection, HospitalDao, Long>
@@ -27,9 +24,7 @@ public class ImperativeHospitalRepositoryImpl extends ImperativeElementProjectab
     }
 
     @Override
-    public Map<CmdbRetrieveType, Class<? extends HospitalProjection>> projectionTypeMap() {
-        return Map.of(
-                CmdbRetrieveType.BASIC, BasicHospitalProjection.class
-        );
+    public Class<? extends HospitalProjection> basicProjection() {
+        return BasicHospitalProjection.class;
     }
 }

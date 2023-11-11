@@ -12,6 +12,7 @@ import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.ParameterizedTypeReference;
 
 import java.io.Serializable;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -26,14 +27,16 @@ public abstract class ImperativeElementProjectableReadOnlyRepositoryImpl<
 
     private final ModelMapper modelMapper;
 
+    private final Map<CmdbRetrieveType, Class<? extends P>> availableProjections;
+
     protected ImperativeElementProjectableReadOnlyRepositoryImpl(
             GenericDaoMapper<E, D, I> mapper,
             JpaElementProjectableReadOnlyRepository<P, D, I> repository,
-            ModelMapper modelMapper
-    ) {
+            ModelMapper modelMapper) {
         super(mapper, repository);
         this.repository = repository;
         this.modelMapper = modelMapper;
+        this.availableProjections = generateProjectionMap();
     }
 
     @Override
@@ -53,14 +56,24 @@ public abstract class ImperativeElementProjectableReadOnlyRepositoryImpl<
 //                .toList();
 //    }
 
-    public Map<CmdbRetrieveType, Class<? extends P>> projectionTypeMap() {
-        return Map.of();
+    private Map<CmdbRetrieveType, Class<? extends P>> generateProjectionMap() {
+        Map<CmdbRetrieveType, Class<? extends P>> projectionMap = new EnumMap<>(CmdbRetrieveType.class);
+        projectionMap.put(CmdbRetrieveType.BASIC, basicProjection());
+        projectionMap.put(CmdbRetrieveType.COMPLETE, null);
+        projectionMap.putAll(additionalProjections());
+        return projectionMap;
     }
 
     private Class<? extends P> getProjection(CmdbRetrieveType type) {
-        return Optional.ofNullable(projectionTypeMap().get(type))
+        return Optional.ofNullable(availableProjections.get(type))
                 .orElseThrow();
     }
+
+    public Map<CmdbRetrieveType, Class<? extends P>> additionalProjections() {
+        return Map.of();
+    }
+
+    public abstract Class<? extends P> basicProjection();
 
     private Class<E> getElementType() {
         var typeReference = new ParameterizedTypeReference<E>() {
