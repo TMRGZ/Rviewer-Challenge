@@ -4,10 +4,12 @@ import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.domain.repository.common.CmdbRetrieveType;
 import com.rviewer.mychallenge.domain.repository.common.imperative.ImperativeElementProjectableReadOnlyRepository;
 import com.rviewer.mychallenge.domain.repository.common.reactive.ReactiveElementProjectableReadOnlyRepository;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import java.io.Serializable;
+import java.util.function.Function;
 
 public abstract class ReactiveElementProjectableReadOnlyRepositoryImpl<
         E extends CmdbElement<I>,
@@ -28,10 +30,10 @@ public abstract class ReactiveElementProjectableReadOnlyRepositoryImpl<
                 .subscribeOn(Schedulers.boundedElastic());
     }
 
-//    @Override
-//    public Flux<E> findAll(CmdbRetrieveType type) {
-//        return Mono.fromCallable(() -> repository.findAll(type))
-//                .flatMapIterable(Function.identity())
-//                .subscribeOn(Schedulers.boundedElastic());
-//    }
+    @Override
+    public Flux<E> findAll(CmdbRetrieveType type) {
+        return Mono.fromCallable(() -> repository.findAll(type))
+                .flatMapIterable(Function.identity())
+                .subscribeOn(Schedulers.boundedElastic());
+    }
 }

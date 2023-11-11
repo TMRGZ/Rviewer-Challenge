@@ -10,9 +10,11 @@ import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.
 import org.modelmapper.ModelMapper;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -40,21 +42,31 @@ public abstract class ImperativeElementProjectableReadOnlyRepositoryImpl<
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<E> findById(I id, CmdbRetrieveType type) {
-        Class<? extends P> projection = getProjection(type);
-        return type == CmdbRetrieveType.COMPLETE
-                ? super.findById(id)
-                : repository.findById(id, projection)
-                .map(projectedElement -> modelMapper.map(projectedElement, getElementType()));
+        return switch (type) {
+            case COMPLETE -> super.findById(id);
+            default -> {
+                Class<? extends P> projection = getProjection(type);
+                yield repository.findById(id, projection)
+                        .map(projectedElement -> modelMapper.map(projectedElement, getElementType()));
+            }
+        };
     }
 
-//    @Override
-//    public List<E> findAll(CmdbRetrieveType type) {
-//        Class<P> projection = getProjection(type);
-//        return repository.findAll(projection).stream()
-//                .map(projectedElement -> (E) modelMapper.map(projectedElement, getElementType()))
-//                .toList();
-//    }
+    @Override
+    @Transactional(readOnly = true)
+    public List<E> findAll(CmdbRetrieveType type) {
+        return switch (type) {
+            case COMPLETE -> super.findAll();
+            default -> {
+                Class<? extends P> projection = getProjection(type);
+                yield repository.findAllBy(projection).stream()
+                        .map(projectedElement -> modelMapper.map(projectedElement, getElementType()))
+                        .toList();
+            }
+        };
+    }
 
     private Map<CmdbRetrieveType, Class<? extends P>> generateProjectionMap() {
         Map<CmdbRetrieveType, Class<? extends P>> projectionMap = new EnumMap<>(CmdbRetrieveType.class);

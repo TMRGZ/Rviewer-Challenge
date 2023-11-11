@@ -2,6 +2,7 @@ package com.rviewer.mychallenge.domain.repository.common.reactive;
 
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.domain.repository.common.CmdbRetrieveType;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.io.Serializable;
@@ -18,10 +19,10 @@ public interface ReactiveElementProjectableReadOnlyRepository<
 
     Mono<E> findById(I id, CmdbRetrieveType type);
 
-//    @Override
-//    default Flux<E> findAll() {
-//        return findAll(CmdbRetrieveType.COMPLETE);
-//    }
-//
-//    Flux<E> findAll(CmdbRetrieveType type);
+    @Override
+    default Flux<E> findAll() {
+        return findAll(CmdbRetrieveType.COMPLETE);
+    }
+
+    Flux<E> findAll(CmdbRetrieveType type);
 }

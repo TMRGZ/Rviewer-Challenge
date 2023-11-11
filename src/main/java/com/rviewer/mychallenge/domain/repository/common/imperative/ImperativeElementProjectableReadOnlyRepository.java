@@ -3,6 +3,7 @@ package com.rviewer.mychallenge.domain.repository.common.imperative;
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.domain.repository.common.CmdbRetrieveType;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ImperativeElementProjectableReadOnlyRepository<E extends CmdbElement<I>, I>
@@ -15,11 +16,11 @@ public interface ImperativeElementProjectableReadOnlyRepository<E extends CmdbEl
 
     Optional<E> findById(I id, CmdbRetrieveType type);
 
-//    @Override
-//    default List<E> findAll() {
-//        return findAll(CmdbRetrieveType.COMPLETE);
-//    }
-//
-//    List<E> findAll(CmdbRetrieveType type);
+    @Override
+    default List<E> findAll() {
+        return findAll(CmdbRetrieveType.COMPLETE);
+    }
+
+    List<E> findAll(CmdbRetrieveType type);
 
 }

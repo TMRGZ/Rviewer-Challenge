@@ -29,14 +29,14 @@ public abstract class ImperativeElementReadOnlyRepositoryImpl<
 
     @Override
     @Cacheable
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<E> findById(I id) {
         return repository.findById(id)
                 .map(mapper::mapToModel);
     }
     @Override
     @Cacheable(key = "'all'")
-    @Transactional
+    @Transactional(readOnly = true)
     public List<E> findAll() {
         return repository.findAll().stream()
                 .filter(CmdbElementDao::getActive)
@@ -45,7 +45,7 @@ public abstract class ImperativeElementReadOnlyRepositoryImpl<
     }
     @Override
     @Cacheable(key = "id + '-history'")
-    @Transactional
+    @Transactional(readOnly = true)
     public List<E> findHistory(I id) {
         return repository.findRevisions(id).stream()
                 .map(Revision::getEntity)

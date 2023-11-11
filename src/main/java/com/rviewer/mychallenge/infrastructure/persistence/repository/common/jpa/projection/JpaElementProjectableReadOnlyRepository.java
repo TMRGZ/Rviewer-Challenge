@@ -6,6 +6,7 @@ import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.
 import org.springframework.data.repository.NoRepositoryBean;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 @NoRepositoryBean
@@ -17,5 +18,5 @@ public interface JpaElementProjectableReadOnlyRepository<
 
     <R extends P> Optional<R> findById(I id, Class<R> projection);
 
-//    <R extends P> List<R> findAll(Class<R> projection);
+    <R extends P> List<R> findAllBy(Class<R> projection);
 }
