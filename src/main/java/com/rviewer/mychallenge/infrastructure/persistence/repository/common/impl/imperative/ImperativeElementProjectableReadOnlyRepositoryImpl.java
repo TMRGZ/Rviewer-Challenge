@@ -39,7 +39,9 @@ public abstract class ImperativeElementProjectableReadOnlyRepositoryImpl<
     @Override
     public Optional<E> findById(I id, CmdbRetrieveType type) {
         Class<? extends P> projection = getProjection(type);
-        return repository.findById(id, projection)
+        return type == CmdbRetrieveType.COMPLETE
+                ? super.findById(id)
+                : repository.findById(id, projection)
                 .map(projectedElement -> modelMapper.map(projectedElement, getElementType()));
     }
 
