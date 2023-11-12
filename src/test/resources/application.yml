@@ -10,3 +10,6 @@ spring:
 
   liquibase:
     change-log: db/changelog/db.changelog-test-master.yml
+  data:
+    redis:
+      port: 63790
