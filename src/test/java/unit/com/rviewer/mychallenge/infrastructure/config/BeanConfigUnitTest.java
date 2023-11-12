@@ -1,6 +1,6 @@
 package unit.com.rviewer.mychallenge.infrastructure.config;
 
-import com.rviewer.mychallenge.domain.repository.hospital.HospitalRepository;
+import com.rviewer.mychallenge.domain.repository.hospital.ReactiveHospitalRepository;
 import com.rviewer.mychallenge.infrastructure.config.BeanConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class BeanConfigUnitTest {
     @Test
     void hospitalServiceUnitTest() {
         // given
-        var hospitalRepository = Mockito.mock(HospitalRepository.class);
+        var hospitalRepository = Mockito.mock(ReactiveHospitalRepository.class);
 
         // when
         var hospitalService = beanConfig.hospitalService(hospitalRepository);

@@ -1,7 +1,7 @@
 package unit.com.rviewer.mychallenge.domain.service.common;
 
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
-import com.rviewer.mychallenge.domain.repository.common.ElementCrudRepository;
+import com.rviewer.mychallenge.domain.repository.common.imperative.ImperativeElementCrudRepository;
 import com.rviewer.mychallenge.domain.service.common.CmdbCrudService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,11 +15,11 @@ public abstract class CmdbCrudServiceUnitTest<E extends CmdbElement<I>, I> exten
 
     private CmdbCrudService<E, I> crudService;
 
-    private ElementCrudRepository<E, I> repository;
+    private ImperativeElementCrudRepository<E, I> repository;
 
     public void setup(
             CmdbCrudService<E, I> crudService,
-            ElementCrudRepository<E, I> repository
+            ImperativeElementCrudRepository<E, I> repository
     ) {
         super.setup(crudService, repository);
         this.crudService = crudService;

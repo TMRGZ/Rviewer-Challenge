@@ -3,7 +3,7 @@ package unit.com.rviewer.mychallenge.infrastructure.persistence.repository.hospi
 import com.rviewer.mychallenge.domain.model.hospital.Hospital;
 import com.rviewer.mychallenge.infrastructure.mapper.hospital.HospitalDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.hospital.HospitalDao;
-import com.rviewer.mychallenge.infrastructure.persistence.repository.hospital.impl.HospitalRepositoryImpl;
+import com.rviewer.mychallenge.infrastructure.persistence.repository.hospital.impl.ImperativeHospitalRepositoryImpl;
 import com.rviewer.mychallenge.infrastructure.persistence.repository.hospital.jpa.JpaHospitalRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 class HospitalRepositoryImplUnitTest extends ElementCrudRepositoryImplUnitTest<Hospital, HospitalDao, Long> {
 
     @InjectMocks
-    private HospitalRepositoryImpl hospitalRepository;
+    private ImperativeHospitalRepositoryImpl hospitalRepository;
 
     @Mock
     private HospitalDaoMapper mapper;

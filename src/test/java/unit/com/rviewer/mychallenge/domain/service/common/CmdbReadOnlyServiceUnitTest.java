@@ -1,7 +1,7 @@
 package unit.com.rviewer.mychallenge.domain.service.common;
 
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
-import com.rviewer.mychallenge.domain.repository.common.ElementReadOnlyRepository;
+import com.rviewer.mychallenge.domain.repository.common.imperative.ImperativeElementReadOnlyRepository;
 import com.rviewer.mychallenge.domain.service.common.CmdbReadOnlyService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,11 +19,11 @@ public abstract class CmdbReadOnlyServiceUnitTest<E extends CmdbElement<I>, I> {
 
     private CmdbReadOnlyService<E, I> readOnlyService;
 
-    private ElementReadOnlyRepository<E, I> repository;
+    private ImperativeElementReadOnlyRepository<E, I> repository;
 
     public void setup(
             CmdbReadOnlyService<E, I> readOnlyService,
-            ElementReadOnlyRepository<E, I> repository
+            ImperativeElementReadOnlyRepository<E, I> repository
     ) {
         this.readOnlyService = readOnlyService;
         this.repository = repository;

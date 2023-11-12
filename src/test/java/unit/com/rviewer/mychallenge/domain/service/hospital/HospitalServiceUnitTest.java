@@ -1,7 +1,7 @@
 package unit.com.rviewer.mychallenge.domain.service.hospital;
 
 import com.rviewer.mychallenge.domain.model.hospital.Hospital;
-import com.rviewer.mychallenge.domain.repository.hospital.HospitalRepository;
+import com.rviewer.mychallenge.domain.repository.hospital.ImperativeHospitalRepository;
 import com.rviewer.mychallenge.domain.service.hospital.HospitalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ class HospitalServiceUnitTest extends CmdbCrudServiceUnitTest<Hospital, Long> {
     private HospitalService hospitalService;
 
     @Mock
-    private HospitalRepository hospitalRepository;
+    private ImperativeHospitalRepository hospitalRepository;
 
     static Stream<Long> getByIdUnitTest() {
         return Stream.of(1L);

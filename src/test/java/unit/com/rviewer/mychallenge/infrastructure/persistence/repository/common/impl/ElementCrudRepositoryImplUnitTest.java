@@ -3,7 +3,7 @@ package unit.com.rviewer.mychallenge.infrastructure.persistence.repository.commo
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.infrastructure.mapper.common.GenericDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.common.CmdbElementDao;
-import com.rviewer.mychallenge.infrastructure.persistence.repository.common.impl.ElementCrudRepositoryImpl;
+import com.rviewer.mychallenge.infrastructure.persistence.repository.common.impl.imperative.ImperativeElementCrudRepositoryImpl;
 import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.JpaElementCrudRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,12 +19,12 @@ public abstract class ElementCrudRepositoryImplUnitTest<
         I extends Serializable>
         extends ElementReadOnlyRepositoryImplUnitTest<E, D, I> {
 
-    private ElementCrudRepositoryImpl<E, D, I> repository;
+    private ImperativeElementCrudRepositoryImpl<E, D, I> repository;
     private GenericDaoMapper<E, D, I> mapper;
     private JpaElementCrudRepository<D, I> jpaElementCrudRepository;
 
     public void setup(
-            ElementCrudRepositoryImpl<E, D, I> repository,
+            ImperativeElementCrudRepositoryImpl<E, D, I> repository,
             GenericDaoMapper<E, D, I> mapper,
             JpaElementCrudRepository<D, I> jpaElementCrudRepository
     ) {

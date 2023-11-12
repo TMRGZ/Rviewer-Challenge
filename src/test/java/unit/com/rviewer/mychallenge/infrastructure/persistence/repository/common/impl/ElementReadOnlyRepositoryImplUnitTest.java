@@ -3,7 +3,7 @@ package unit.com.rviewer.mychallenge.infrastructure.persistence.repository.commo
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
 import com.rviewer.mychallenge.infrastructure.mapper.common.GenericDaoMapper;
 import com.rviewer.mychallenge.infrastructure.persistence.dao.common.CmdbElementDao;
-import com.rviewer.mychallenge.infrastructure.persistence.repository.common.impl.ElementReadOnlyRepositoryImpl;
+import com.rviewer.mychallenge.infrastructure.persistence.repository.common.impl.imperative.ImperativeElementReadOnlyRepositoryImpl;
 import com.rviewer.mychallenge.infrastructure.persistence.repository.common.jpa.JpaElementReadOnlyRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -24,12 +24,12 @@ public abstract class ElementReadOnlyRepositoryImplUnitTest<
         D extends CmdbElementDao<I>,
         I extends Serializable> {
 
-    private ElementReadOnlyRepositoryImpl<E, D, I> repository;
+    private ImperativeElementReadOnlyRepositoryImpl<E, D, I> repository;
     private GenericDaoMapper<E, D, I> mapper;
     private JpaElementReadOnlyRepository<D, I> jpaElementReadOnlyRepository;
 
     public void setup(
-            ElementReadOnlyRepositoryImpl<E, D, I> repository,
+            ImperativeElementReadOnlyRepositoryImpl<E, D, I> repository,
             GenericDaoMapper<E, D, I> mapper,
             JpaElementReadOnlyRepository<D, I> jpaElementReadOnlyRepository
     ) {
