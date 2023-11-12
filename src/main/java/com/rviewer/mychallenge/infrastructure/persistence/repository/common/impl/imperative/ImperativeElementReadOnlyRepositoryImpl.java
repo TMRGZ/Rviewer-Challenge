@@ -44,7 +44,7 @@ public abstract class ImperativeElementReadOnlyRepositoryImpl<
                 .toList();
     }
     @Override
-    @Cacheable(key = "id + '-history'")
+    @Cacheable(key = "#id + '-history'")
     @Transactional(readOnly = true)
     public List<E> findHistory(I id) {
         return repository.findRevisions(id).stream()
