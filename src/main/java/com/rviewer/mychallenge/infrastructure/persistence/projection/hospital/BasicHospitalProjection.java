@@ -1,10 +1,19 @@
 package com.rviewer.mychallenge.infrastructure.persistence.projection.hospital;
 
-public record BasicHospitalProjection(
-        Long id,
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-        String address,
+@EqualsAndHashCode(callSuper = true)
+@Data
+@SuperBuilder(toBuilder = true)
+@NoArgsConstructor
+public class BasicHospitalProjection extends HospitalProjection {
 
-        String name
-) implements HospitalProjection {
+    private Long id;
+
+    private String address;
+
+    private String name;
 }

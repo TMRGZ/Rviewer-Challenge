@@ -1,7 +1,7 @@
 package com.rviewer.mychallenge.infrastructure.persistence.repository.common.impl.reactive;
 
 import com.rviewer.mychallenge.domain.model.common.CmdbElement;
-import com.rviewer.mychallenge.domain.repository.common.imperative.ImperativeElementCrudRepository;
+import com.rviewer.mychallenge.domain.repository.common.CmdbRetrieveType;
 import com.rviewer.mychallenge.domain.repository.common.imperative.ImperativeElementProjectableCrudRepository;
 import com.rviewer.mychallenge.domain.repository.common.reactive.ReactiveElementProjectableCrudRepository;
 import reactor.core.publisher.Mono;
@@ -15,7 +15,7 @@ public abstract class ReactiveElementProjectableCrudRepositoryImpl<
         extends ReactiveElementProjectableReadOnlyRepositoryImpl<E, I>
         implements ReactiveElementProjectableCrudRepository<E, I> {
 
-    private final ImperativeElementCrudRepository<E, I> repository;
+    private final ImperativeElementProjectableCrudRepository<E, I> repository;
 
     protected ReactiveElementProjectableCrudRepositoryImpl(
             ImperativeElementProjectableCrudRepository<E, I> repository
@@ -27,6 +27,12 @@ public abstract class ReactiveElementProjectableCrudRepositoryImpl<
     @Override
     public Mono<E> save(E element) {
         return Mono.fromCallable(() -> repository.save(element))
+                .subscribeOn(Schedulers.boundedElastic());
+    }
+
+    @Override
+    public Mono<E> save(E element, CmdbRetrieveType retrieveType) {
+        return Mono.fromCallable(() -> repository.save(element, retrieveType))
                 .subscribeOn(Schedulers.boundedElastic());
     }
 

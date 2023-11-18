@@ -27,7 +27,7 @@ public abstract class ImperativeElementProjectableReadOnlyRepositoryImpl<
 
     private final JpaElementProjectableReadOnlyRepository<P, D, I> repository;
 
-    private final ModelMapper modelMapper;
+    protected final ModelMapper modelMapper;
 
     private final Map<CmdbRetrieveType, Class<? extends P>> availableProjections;
 
@@ -76,7 +76,7 @@ public abstract class ImperativeElementProjectableReadOnlyRepositoryImpl<
         return projectionMap;
     }
 
-    private Class<? extends P> getProjection(CmdbRetrieveType type) {
+    protected Class<? extends P> getProjection(CmdbRetrieveType type) {
         return Optional.ofNullable(availableProjections.get(type))
                 .orElseThrow();
     }
