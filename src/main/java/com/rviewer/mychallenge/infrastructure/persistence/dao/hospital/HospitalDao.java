@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.envers.AuditJoinTable;
 import org.hibernate.envers.Audited;
 
@@ -21,6 +23,7 @@ import java.util.List;
 @Entity
 @Audited
 @Table(name = "HOSPITAL")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HospitalDao extends CmdbElementDao<Long> {
 
     @Column(name = "NAME", nullable = false)

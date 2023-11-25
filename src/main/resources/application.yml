@@ -1,3 +1,8 @@
+singleServerConfig:
+  address: redis://127.0.0.1:6379
+
+---
+
 spring:
   application:
     name: Challenge
@@ -9,3 +14,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+    properties:
+      hibernate:
+        javax:
+          cache:
+            uri: application.yml
+        cache:
+          region:
+            factory_class: jcache
+          use_second_level_cache: true
